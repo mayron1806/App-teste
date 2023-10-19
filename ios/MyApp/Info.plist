@@ -35,6 +35,17 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+			<dict>
+					<key>CFBundleURLName</key>
+					<string>MyAppScheme</string> <!-- Nome do esquema de URL -->
+					<key>CFBundleURLSchemes</key>
+					<array>
+							<string>org.reactjs.native.example.MyApp</string> <!-- Esquema de URL -->
+					</array>
+			</dict>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
