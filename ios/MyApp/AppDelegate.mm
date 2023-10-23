@@ -18,21 +18,22 @@
     // Escrever dados modificados de volta para o arquivo Info.plist
     [data writeToFile:path atomically:YES];
     
-    // Libere a memória alocada pelo dicionário
-    [data release]; // Note: Somente se você não estiver usando ARC
+    // Não é necessário liberar a memória alocada pelo dicionário quando ARC está ativado.
     
     // Restante do código de inicialização
     return YES;
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
-  // Code a ser executado quando a aplicação está prestes a terminar
+    // Code a ser executado quando a aplicação está prestes a terminar
 
-  // Crie o dicionário e adicione elementos
-  NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.path];
-  int value = 5;
-  [data setObject:[NSNumber numberWithInt:value] forKey:@"numero"];
-  [data writeToFile:self.path atomically:YES];
-
+    // Crie o dicionário e adicione elementos
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+    int value = 5;
+    [data setObject:[NSNumber numberWithInt:value] forKey:@"numero"];
+    [data writeToFile:path atomically:YES];
+    
+    // Não é necessário liberar a memória alocada pelo dicionário quando ARC está ativado.
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
