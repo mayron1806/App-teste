@@ -7,7 +7,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Obtenha o caminho para o arquivo Info.plist
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    // Obtenha o token do URL schema
     
+    NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    NSString *token = [self parseTokenFromURL:url];
+
+    // Emita o evento para o JavaScript
+    if (token) {
+        [self.bridge.eventDispatcher sendAppEventWithName:@"onTokenReceived"
+                                                     body:@{@"token": token}];
+    }
     // Leitura do arquivo Info.plist
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
     
