@@ -12,8 +12,8 @@
     
     NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
     NSString *token = nil;
-    if ([urlString hasPrefix:@"org.reactjs.native.example.MyApp://token/"]) {
-      token = [urlString substringFromIndex:@"org.reactjs.native.example.MyApp://token/".length];
+    if ([url.absoluteString  hasPrefix:@"org.reactjs.native.example.MyApp://token/"]) {
+      token = [url.absoluteString  substringFromIndex:@"org.reactjs.native.example.MyApp://token/".length];
       NSLog(@"Token extraído: %@", token);
     }
     // Emita o evento para o JavaScript
@@ -49,9 +49,10 @@
     // Não é necessário liberar a memória alocada pelo dicionário quando ARC está ativado.
 }
 
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
