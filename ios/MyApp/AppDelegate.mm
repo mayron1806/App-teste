@@ -3,7 +3,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
-
+#import <React/RCTEventDispatcher.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
