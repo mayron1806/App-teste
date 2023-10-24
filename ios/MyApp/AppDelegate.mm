@@ -2,7 +2,6 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
 #import <React/RCTEventDispatcher.h>
 @implementation AppDelegate
 
@@ -12,8 +11,11 @@
     // Obtenha o token do URL schema
     
     NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
-    NSString *token = [self parseTokenFromURL:url];
-
+    NSString *token = nil;
+    if ([urlString hasPrefix:@"org.reactjs.native.example.MyApp://token/"]) {
+      token = [urlString substringFromIndex:@"org.reactjs.native.example.MyApp://token/".length];
+      NSLog(@"Token extraído: %@", token);
+    }
     // Emita o evento para o JavaScript
     if (token) {
         [self.bridge.eventDispatcher sendAppEventWithName:@"onTokenReceived"
@@ -47,7 +49,6 @@
     // Não é necessário liberar a memória alocada pelo dicionário quando ARC está ativado.
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
